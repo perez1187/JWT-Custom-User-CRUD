@@ -4,7 +4,7 @@
 from rest_framework import views, response, exceptions, permissions
 
 from . import serializer as user_serializer
-from . import services
+from . import services, authentication
 
 class RegisterApi(views.APIView):
 
@@ -42,3 +42,16 @@ class LoginApi(views.APIView):
         resp.set_cookie(key="jwt", value=token, httponly=True)
 
         return resp
+class UserApi(views.APIView):
+    '''
+        This endpoint can only be used 
+        if the user is authenticated
+    '''
+    authentication_classes = (authentication.CustomUserAuthentication,)
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get(self, request):
+        user = request.user
+        serializer=user_serializer.UserSerializer(user)
+
+        return response.Response(serializer.data)
