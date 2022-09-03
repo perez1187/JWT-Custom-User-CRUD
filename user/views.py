@@ -21,6 +21,7 @@ class RegisterApi(views.APIView):
         serializer.instance = services.create_user(user_dc=data)
 
         return response.Response(data=serializer.data) # from testing we writed return response.Response(data={"hello": "World"}) 
+        # or like in for example smc ver 1
 
 class LoginApi(views.APIView):
     def post(self, request):

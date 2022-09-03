@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # local
     'user',
+    "status",
 
     # 3rd parties
     'rest_framework',

@@ -10,3 +10,6 @@ user credentials
     "email": "user1@google.com",
     "password": "1234"
 }
+
+admin2@gmail.com
+admin
