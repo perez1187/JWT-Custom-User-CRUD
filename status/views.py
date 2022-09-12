@@ -26,3 +26,12 @@ class StatusCreateListApi(views.APIView):
         serializer = status_serializer.StatusSerializer(status_collection,many=True) 
         # many true we tell django that will be zero or more objcects
         return response.Response(data=serializer.data)
+
+class StatusRetrieveUpdateDelete(views.APIView):
+    authentication_classes=(authentication.CustomUserAuthentication, )
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get(self, request, status_id):
+        status = services.get_user_status_detail(user=request.user, status_id=status_id)
+        serializer = status_serializer.StatusSerializer(status) # we dont need many=True
+        return response.Response(data=serializer.data)

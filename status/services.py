@@ -6,6 +6,8 @@ from . import models as status_models
 from user import services as user_services
 from user.models import User
 
+from django.shortcuts import get_object_or_404
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -44,3 +46,13 @@ def get_user_status(user: "User")-> list["StatusDataClass"]: # statuses/posts
 
     # now we want to return in "his" format
     return [StatusDataClass.from_instance(single_status) for single_status in user_status]
+
+def get_user_status_detail(user: "User", status_id: int) -> "StatusDataClass":
+    # first, model, next what we want to find
+    status = get_object_or_404(status_models.Status,pk=status_id )
+
+    '''
+        get object or 404 handle for us if there is no item in db
+    '''
+
+    return StatusDataClass.from_instance(status_model=status)
