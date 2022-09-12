@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from models import Status
 
-@dataclasses
+@dataclasses.dataclass
 class StatusDataClass:
     content: str
 
@@ -20,7 +20,7 @@ class StatusDataClass:
     id: int = None
 
     @classmethod
-    def from_instance(cls, status_model:"Status") -> "StatusDataClass":
+    def from_instance(cls, status_model:"Status") -> "StatusDataClass": # to map our user class
         return cls(
             content = status_model.content,
             date_published = status_model.date_published,

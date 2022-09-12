@@ -7,7 +7,7 @@ from . import services
 class StatusSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     content = serializers.CharField()
-    date_published= serializers.DateTimeField()
+    date_published= serializers.DateTimeField(read_only=True)
 
     # user - we can take him on two ways
     # user_id = serializers.IntegerField()

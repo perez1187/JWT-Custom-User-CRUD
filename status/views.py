@@ -22,4 +22,4 @@ class StatusCreateListApi(views.APIView):
         return response.Response(data=serializer.data)
 
     def get(self, request):
-        pass
+        return response.Response(data="hello")
