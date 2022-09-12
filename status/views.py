@@ -22,4 +22,7 @@ class StatusCreateListApi(views.APIView):
         return response.Response(data=serializer.data)
 
     def get(self, request):
-        return response.Response(data="hello")
+        status_collection = services.get_user_status(user=request.user)
+        serializer = status_serializer.StatusSerializer(status_collection,many=True) 
+        # many true we tell django that will be zero or more objcects
+        return response.Response(data=serializer.data)

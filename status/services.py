@@ -4,6 +4,7 @@ import datetime
 from . import models as status_models
 
 from user import services as user_services
+from user.models import User
 
 from typing import TYPE_CHECKING
 
@@ -36,3 +37,10 @@ def create_status(user, status:"StatusDataClass") -> "StatusDataClass":
     )
 
     return StatusDataClass.from_instance(status_model=status_create)
+
+def get_user_status(user: "User")-> list["StatusDataClass"]: # statuses/posts
+    # first we create queryy
+    user_status = status_models.Status.objects.filter(user=user)
+
+    # now we want to return in "his" format
+    return [StatusDataClass.from_instance(single_status) for single_status in user_status]
