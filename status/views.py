@@ -1,4 +1,5 @@
 from rest_framework import views,response, permissions
+from rest_framework import status as rest_status
 
 from user import authentication
 from . import serializer as status_serializer
@@ -32,6 +33,13 @@ class StatusRetrieveUpdateDelete(views.APIView):
     permission_classes = (permissions.IsAuthenticated, )
 
     def get(self, request, status_id):
-        status = services.get_user_status_detail(user=request.user, status_id=status_id)
+        status = services.get_user_status_detail(status_id=status_id)
         serializer = status_serializer.StatusSerializer(status) # we dont need many=True
         return response.Response(data=serializer.data)
+
+    def delete(self, request, status_id):
+        services.delete_user_status(user=request.user, status_id= status_id)
+        return response.Response(status=rest_status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, status_id):
+        pass
