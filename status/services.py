@@ -67,3 +67,13 @@ def delete_user_status(user:"User", status_id):
         raise exceptions.PermissionDenied("You are not user")
     
     status.delete()
+
+
+def update_user_status(user:"User", status_id:int, status_data: "StatusDataClass"):
+    status = get_object_or_404(status_models.Status,pk=status_id)
+    if status.user.id != user.id:
+        raise exceptions.PermissionDenied("You are not user")
+    status.content =status_data.content
+    status.save()
+
+    return StatusDataClass.from_instance(status_model=status)

@@ -42,4 +42,9 @@ class StatusRetrieveUpdateDelete(views.APIView):
         return response.Response(status=rest_status.HTTP_204_NO_CONTENT)
 
     def put(self, request, status_id):
-        pass
+        serializer = status_serializer.StatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        status = serializer.validated_data
+        serializer.instance = services.update_user_status(user=request.user, status_id=status_id, status_data=status)
+
+        return response.Response(data=serializer.data)
