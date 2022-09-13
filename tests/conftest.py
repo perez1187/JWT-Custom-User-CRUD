@@ -18,3 +18,10 @@ def user():
 @pytest.fixture
 def client():
     return APIClient()
+
+@pytest.fixture
+def auth_client(user, client): # we need to create user adn we need to use client
+    client.post("/api/login/", dict(email=user.email,password="timeforsometesting1"))
+    # we need to paste password manually
+
+    return client # we just retunrn a client who is autheticated

@@ -35,6 +35,7 @@ def test_login_user(user, client):
     '''
         we can create credentials manualy or use function from conftest.py
         then we paste user here: def test_login_user(user)
+        user in the test_login_user(user) means that user is created
     '''
     
     # payload = dict(
@@ -46,6 +47,11 @@ def test_login_user(user, client):
 
     # client.post("/api/register/", payload)
 
+    '''
+        client.post -> in that case we login user
+        first part - > url
+        second part -> data that we send
+    '''
     response = client.post("/api/login/", dict(email="harry@hooogwards.com",password="timeforsometesting1"))
 
     assert response.status_code == 200
@@ -57,5 +63,23 @@ def test_login_user_fail(client):
     assert response.status_code == 403
 
 @pytest.mark.django_db
-def test_get_me():
-    pass
+def test_get_me(user, auth_client):
+
+
+    response = auth_client.get("/api/me/")
+
+    assert response.status_code == 200 # we check if  the site exist
+
+    data = response.data
+
+    assert data["id"] == user.id
+    assert data["email"] == user.email
+
+    # we can also check if other user has acces to my data etc
+
+@pytest.mark.django_db
+def test_logout(auth_client):
+    response = auth_client.post("/api/logout/") # we dont have body here
+
+    assert response.status_code == 200
+    assert response.data["message"] == "logout"
