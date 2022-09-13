@@ -3,3 +3,5 @@ pyjwt
 djangorestframework
 django-cors-headers
 black
+pytest
+pytest-django
