@@ -3,6 +3,9 @@ for parts from:
 https://www.youtube.com/watch?v=8kaBtwAOQck&list=PLhH3UpV2flryxanDGC4yzuRn1lHKELtob&index=3
 rithmic
 
+postgres and ubuntu
+https://www.youtube.com/watch?v=73WbBMnqPpg
+
 user credentials
 {
     "first_name": "John",
